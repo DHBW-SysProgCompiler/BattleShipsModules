@@ -3,7 +3,7 @@
 #include "timer.h"
 #include "nvic.h"
 
-#include "RegisterAccess.h"
+#include "register_access.h"
 
 
 void timer_init_detailed(uint32_t prescaler, uint32_t bitmode, uint32_t compareValue) {

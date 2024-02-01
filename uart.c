@@ -1,7 +1,7 @@
 #include <stdint.h>
 
 #include "uart.h"
-#include "RegisterAccess.h"
+#include "register_access.h"
 
 
 void uart_init() {
@@ -12,7 +12,7 @@ void uart_init() {
 	//register_write((UART_BASE_ADDRESS + UART_CONFIG), 0); // Optional
 
 	// set PSELRXD, PSELRTS, PSELTRTS and PSELTXD -----------------------------
-	
+
 	// PSELRTS - disconnected (default)
 	//register_write((UART_BASE_ADDRESS + UART_PSELRTS), 0xFFFFFFFF); // Optional
 
@@ -36,7 +36,7 @@ void uart_init() {
 
 	// Fire the START event for the Transmitter: ------------------------------
 	register_write((UART_BASE_ADDRESS + UART_STARTTX), UART_TASK_START);
-	
+
 	// Fire the START event for the Receiver: ---------------------------------
 	register_write((UART_BASE_ADDRESS + UART_STARTRX), UART_TASK_START);
 }
@@ -53,7 +53,7 @@ uint8_t uart_readByte() {
 
 	// if not ready, return 0
 	uint32_t receiveIsReady = register_read( (UART_BASE_ADDRESS + UART_RXDRDY) );
-	
+
 	if(receiveIsReady) {
 
 		// we have to CLEAR the event before reading out from RXD
@@ -78,6 +78,6 @@ uint8_t uart_readByteBlocking() {
 	// You can use Interrupts to receive an EVENT, if some RX data is pending
 	// but don't forget to clear it.
 	// Feel free ;-)
-	
+
 	return 0;
 }
