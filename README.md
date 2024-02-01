@@ -1,2 +1,2 @@
-# BattleShipsModules
+# BattleShips Modules
 Modules for BattleShips
