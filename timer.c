@@ -12,9 +12,6 @@ void timer_init(enum Timer timer, uint32_t prescaler, uint32_t bitmode, uint32_t
   timer_bitmode(timer, bitmode);
   // Add capture target
   timer_add_capture(timer, CC0, cc0);
-  timer_remove_capture(timer, CC1);
-  timer_remove_capture(timer, CC2);
-  timer_remove_capture(timer, CC3);
 }
 
 void timer_prescaler(enum Timer timer, uint32_t prescaler) {
