@@ -1,4 +1,6 @@
+#include <stdint.h>
 #include "uart.h"
+#include "screen_control.h"
 
 void init() { uart_init(); }
 void printc(char c) { uart_writeByte(c); }
