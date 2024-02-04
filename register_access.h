@@ -24,7 +24,7 @@
  * @param[in] value
  *   Register Value
  **/
-void register_write( uint32_t address, uint32_t value );
+void register_write(uint32_t address, uint32_t value);
 
 /**
  * @brief Read from Register.
@@ -34,6 +34,6 @@ void register_write( uint32_t address, uint32_t value );
  *
  * @return Register Value
  **/
-uint32_t register_read( uint32_t address );
+uint32_t register_read(uint32_t address);
 
 #endif

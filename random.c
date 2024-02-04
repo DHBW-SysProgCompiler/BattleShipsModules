@@ -1,9 +1,8 @@
-#include <stdint.h>
 #include "random.h"
+#include <stdint.h>
 
 // also need access for basic register read and write
 #include "register_access.h"
-
 
 /**
  * @brief Enables the generation of random numbers
@@ -12,11 +11,9 @@
  */
 void rng_init() {
 
-	// Write a '1' to the Start Task, to start the generation of random numbers
-	register_write((RNG_BASE_ADDRESS + RNG_START), RNG_TASK_START);
-
+  // Write a '1' to the Start Task, to start the generation of random numbers
+  register_write((RNG_BASE_ADDRESS + RNG_START), RNG_TASK_START);
 }
-
 
 /**
  * @brief Get the Random Value from the generator immediately.
@@ -27,13 +24,12 @@ void rng_init() {
  */
 uint8_t rng_getRandomValue_immediately() {
 
-	// Read 32-Bit Register containing the RNG Value
-	uint32_t randomValue = register_read( (RNG_BASE_ADDRESS + RNG_VALUE) );
+  // Read 32-Bit Register containing the RNG Value
+  uint32_t randomValue = register_read((RNG_BASE_ADDRESS + RNG_VALUE));
 
-	// its actual just 8-Bit, so cast it.
-	return (uint8_t)randomValue;
+  // its actual just 8-Bit, so cast it.
+  return (uint8_t)randomValue;
 }
-
 
 /**
  * @brief # THIS FUNCTION IS A STUB! #
@@ -49,9 +45,9 @@ uint8_t rng_getRandomValue_immediately() {
  */
 uint8_t rng_getRandomValue_waiting() {
 
-	// TODO:
-	// Implement a 'waiting' here, if needed
+  // TODO:
+  // Implement a 'waiting' here, if needed
 
-	// for now, return 0
-	return 0;
+  // for now, return 0
+  return 0;
 }
