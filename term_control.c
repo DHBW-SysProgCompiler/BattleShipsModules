@@ -1,8 +1,10 @@
-#include "screen_control.h"
+#include "term_control.h"
 #include "uart.h"
+#include "heap_allocations.h"
+#include "register_access.h"
 #include <stdint.h>
 
-void init() {
+void term_init() {
   // initialize uart
   uart_init();
   // nothing else to be done *yet*
@@ -23,4 +25,16 @@ void print(char s[], uint32_t len) {
 void clear_screen() {
   // clears the screen via ansi-voodoo
   print("\e[2J", 4);
+}
+
+void stdin_clear() {
+  return;
+}
+
+char* stdin_get(int len){
+  return 0;
+}
+
+char stdin_read(){
+  return 0;
 }
