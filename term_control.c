@@ -1,7 +1,7 @@
 #include "term_control.h"
-#include "uart.h"
 #include "heap_allocations.h"
 #include "register_access.h"
+#include "uart.h"
 #include <stdint.h>
 
 void term_init() {
@@ -27,14 +27,8 @@ void clear_screen() {
   print("\e[2J", 4);
 }
 
-void stdin_clear() {
-  return;
-}
+void stdin_clear() { return; }
 
-char* stdin_get(int len){
-  return 0;
-}
+char *stdin_get(int len) { return 0; }
 
-char stdin_read(){
-  return 0;
-}
+char stdin_read() { return 0; }

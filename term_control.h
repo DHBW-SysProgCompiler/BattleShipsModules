@@ -30,17 +30,17 @@ void print(char s[], uint32_t len);
 
 /**
  * @brief tries to read a char from stdin and append it to the buffer
- * 
+ *
  * @return returns the read char
  */
 char stdin_read();
 
 /**
  * @brief returns the buffered string from stdin
- * 
+ *
  * @return String from User-Input
  */
-char* stdin_get();
+char *stdin_get();
 
 /**
  * @brief clears the buffer fron stdin
