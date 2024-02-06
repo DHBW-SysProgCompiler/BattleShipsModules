@@ -42,7 +42,7 @@ char stdin_read();
  * @brief returns the length of the buffered string from stdin
  *
  * @return length of filled part in the buffer
- * 
+ *
  * @note will not append /n to buffer
  * @note they are to dangerous when printing string read from stdin
  * @note will still return 0xD to detect presses of the enter-key
