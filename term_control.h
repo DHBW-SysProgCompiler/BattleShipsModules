@@ -5,8 +5,11 @@
 
 /**
  * @brief Initialize the Terminal-Controller
+ *
+ * @param buff poiter to a buffer where user input will be stored
+ * @param len length of the buffer
  */
-void term_init();
+void term_init(char *buff, uint32_t len);
 
 /**
  * @brief clear the console-screen
@@ -31,16 +34,20 @@ void print(char s[], uint32_t len);
 /**
  * @brief tries to read a char from stdin and append it to the buffer
  *
- * @return returns the read char
+ * @return read char
  */
 char stdin_read();
 
 /**
- * @brief returns the buffered string from stdin
+ * @brief returns the length of the buffered string from stdin
  *
- * @return String from User-Input
+ * @return length of filled part in the buffer
+ * 
+ * @note will not append /n to buffer
+ * @note they are to dangerous when printing string read from stdin
+ * @note will still return 0xD to detect presses of the enter-key
  */
-char *stdin_get();
+uint32_t stdin_len();
 
 /**
  * @brief clears the buffer fron stdin

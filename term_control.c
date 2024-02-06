@@ -4,10 +4,17 @@
 #include "uart.h"
 #include <stdint.h>
 
-void term_init() {
+char *buffer = 0;
+uint32_t buffer_len = 0;
+uint32_t buffer_use = 0;
+
+void term_init(char *buff, uint32_t len) {
   // initialize uart
   uart_init();
-  // nothing else to be done *yet*
+
+  // save addr and len of buffer
+  buffer = buff;
+  buffer_len = len;
 }
 
 void printc(char c) {
@@ -27,8 +34,33 @@ void clear_screen() {
   print("\e[2J", 4);
 }
 
-void stdin_clear() { return; }
+void stdin_clear() {
+  // clear builtin buffer from qemu
+  while (uart_readByte() != 0) {
+    continue;
+  }
+  // clear buffer passed via innit
+  for (uint32_t i = 0; i < buffer_len; i++) {
+    buffer[i] = 0;
+  }
+  // reset buffer_use
+  buffer_use = 0;
+}
 
-char *stdin_get(int len) { return 0; }
+char stdin_read() {
+  // try to read a char via uart
+  char c = uart_readByte();
+  if (c != 0 && c != 0xD) {
+    // append char to the next open slot in the buffer
+    for (int32_t i = 0; i < buffer_len; i++) {
+      if (buffer[i] == 0) {
+        buffer[i] = c;
+        buffer_use++;
+        break;
+      }
+    }
+  }
+  return c;
+}
 
-char stdin_read() { return 0; }
+uint32_t stdin_len() { return buffer_use; }
