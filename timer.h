@@ -2,6 +2,7 @@
 #define TIMER_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 // Definitions ----------------------------------------------------------------
 
@@ -46,22 +47,22 @@
 #define TIMER_EVENT_TRIGGER 1 // Value for setting/starting an Event
 #define TIMER_EVENT_CLEAR 0   // Value for clearing/stopping an Event
 
-#define SHORTS_COMPARE0_CLEAR_ENABLE                                           \
+#define SHORTS_COMPARE0_CLEAR_ENABLE \
   (1 << 0) // Shortcut between COMPARE[0] event and CLEAR task
-#define SHORTS_COMPARE0_CLEAR_DISABLE                                          \
+#define SHORTS_COMPARE0_CLEAR_DISABLE \
   (0 << 0) // Shortcut between COMPARE[0] event and CLEAR task
-#define SHORTS_COMPARE1_CLEAR_ENABLE                                           \
+#define SHORTS_COMPARE1_CLEAR_ENABLE \
   (1 << 1) // Shortcut between COMPARE[1] event and CLEAR task
-#define SHORTS_COMPARE1_CLEAR_DISABLE                                          \
+#define SHORTS_COMPARE1_CLEAR_DISABLE \
   (0 << 1) // Shortcut between COMPARE[1] event and CLEAR task
 
-#define SHORTS_COMPARE0_STOP_ENABLE                                            \
+#define SHORTS_COMPARE0_STOP_ENABLE \
   (1 << 8) // Shortcut between COMPARE[0] event and STOP task
-#define SHORTS_COMPARE0_STOP_DISABLE                                           \
+#define SHORTS_COMPARE0_STOP_DISABLE \
   (0 << 8) // Shortcut between COMPARE[0] event and STOP task
-#define SHORTS_COMPARE1_STOP_ENABLE                                            \
+#define SHORTS_COMPARE1_STOP_ENABLE \
   (1 << 9) // Shortcut between COMPARE[1] event and STOP task
-#define SHORTS_COMPARE1_STOP_DISABLE                                           \
+#define SHORTS_COMPARE1_STOP_DISABLE \
   (0 << 9) // Shortcut between COMPARE[1] event and STOP task
 
 #define INT_COMPARE0 (1 << 16) // Enable/Disable Interrupt on COMPARE[0] event
@@ -75,19 +76,20 @@
  * @brief Enum of all available timers.
  * Timer0, Timer1, Timer2
  */
-enum Timer {
-  TIMER0=TIMER0_BASE_ADDRESS,
-  TIMER1=TIMER1_BASE_ADDRESS,
-  TIMER2=TIMER2_BASE_ADDRESS,
+enum Timer
+{
+  TIMER0 = TIMER0_BASE_ADDRESS,
+  TIMER1 = TIMER1_BASE_ADDRESS,
+  TIMER2 = TIMER2_BASE_ADDRESS,
 };
 
-enum Capture {
-  CC0=TIMER_COMPARE_0,
-  CC1=TIMER_COMPARE_1,
-  CC2=TIMER_COMPARE_2,
-  CC3=TIMER_COMPARE_3,
+enum Capture
+{
+  CC0 = TIMER_COMPARE_0,
+  CC1 = TIMER_COMPARE_1,
+  CC2 = TIMER_COMPARE_2,
+  CC3 = TIMER_COMPARE_3,
 };
-
 
 // C Function Definitions -----------------------------------------------------
 
@@ -103,7 +105,7 @@ void timer_init(enum Timer timer, uint32_t prescaler, uint32_t bitmode, uint32_t
 
 /**
  * @brief Changes the timer prescaler.
- * 
+ *
  * @param timer Selected timer
  * @param prescaler Prescaler to reduce percision. min (1 = 0b00000001), max (15 = 0b00001111)
  */
@@ -111,7 +113,7 @@ void timer_prescaler(enum Timer timer, uint32_t prescaler);
 
 /**
  * @brief Change timer bitmode
- * 
+ *
  * @param timer Selected timer
  * @param bitmode Timer bitmode. 0=16b, 1=8b, 2=24b, 3=32b
  */
@@ -119,16 +121,18 @@ void timer_bitmode(enum Timer timer, uint32_t bitmode);
 
 /**
  * @brief Add timer capture target
- * 
+ *
  * @param timer Selected timer
  * @param cc Selected capture group
  * @param compareValue Value to compare timer against
+ * @param clear_on_match Clears/Restarts the timer once target is reached
+ * @param stop_on_match Stops the timer once the target is reached
  */
-void timer_add_capture(enum Timer timer, enum Capture cc, uint32_t compareValue);
+void timer_add_capture(enum Timer timer, enum Capture cc, uint32_t compareValue, bool clear_on_match, bool stop_on_match);
 
 /**
  * @brief Remove timer capture target
- * 
+ *
  * @param timer Selected timer
  * @param cc Selected capture group
  */
@@ -136,32 +140,39 @@ void timer_remove_capture(enum Timer timer, enum Capture cc);
 
 /**
  * @brief Start timer
- * 
+ *
  * @param timer Selected timer
  */
 void timer_start(enum Timer timer);
 
 /**
  * @brief Remove timer
- * 
+ *
  * @param timer Selected timer
  */
 void timer_stop(enum Timer timer);
 
 /**
+ * @brief Clearst the timer, to start from the beginning
+ *
+ * @param timer Selected timer
+ */
+void timer_clear(enum Timer timer);
+
+/**
  * @brief Clears the Compare Event
- * 
+ *
  * @param timer Selected timer
  * @param cc Selected capture group
  */
-void timer_clear(enum Timer timer, enum Capture cc);
+void timer_event_clear(enum Timer timer, enum Capture cc);
 
 /**
  * @brief Check if timer event has triggered
- * 
+ *
  * @param timer Selected timer
  * @param cc Selected capture group
- * @return uint32_t 
+ * @return uint32_t
  */
 uint32_t timer_check(enum Timer timer, enum Capture cc);
 
