@@ -11,6 +11,6 @@
 
 // Buffer for user-input
 #define User_Input_Base Botboard_Base + Board_Length
-#define User_input_Length 20
+#define User_Input_Length 20
 
 #endif
