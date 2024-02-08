@@ -1,3 +1,15 @@
+/**
+ * @file
+ * @copyright
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * @author Eric Erath
+ *
+ * @brief Functions to control in and output from terminal
+ **/
+
 #ifndef TERMCONTROL_H
 #define TERMCONTROL_H
 
@@ -33,7 +45,6 @@ void term_printc(char c);
  * @brief Prints an entire String (char-array)
  *
  * @param s the char-array to be printed
- * @param len length of the array
  */
 void term_print(char s[]);
 
