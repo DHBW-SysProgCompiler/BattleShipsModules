@@ -62,7 +62,7 @@ void term_stdin_clear() {
 char term_stdin_read() {
   // try to read a char via uart
   char c = uart_readByte();
-  if (c != 0 && c != 0xD && c!='\e') {
+  if (c != 0 && c != 0xD && c != '\e') {
     // append char to the next open slot in the buffer
     for (int32_t i = 0; i < buffer_len; i++) {
       if (buffer[i] == 0) {
@@ -84,15 +84,11 @@ uint32_t term_stdin_len() { return buffer_use; }
 // all of this code is powered by ansi-voodoo
 // this should suffice as documentation
 
-void term_save_cursor_pos(){
-  term_print("\e 7");
-}
+void term_save_cursor_pos() { term_print("\e 7"); }
 
-void term_restore_cursor_pos(){
-  term_print("\e 8");
-}
+void term_restore_cursor_pos() { term_print("\e 8"); }
 
-void term_set_cursor_pos(char pos[]){
+void term_set_cursor_pos(char pos[]) {
   term_print("\e[");
   term_print(pos);
   term_print("H");

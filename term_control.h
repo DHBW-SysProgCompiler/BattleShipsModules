@@ -70,24 +70,25 @@ void term_stdin_clear();
 #pragma region cursor
 
 /**
- * @brief saves the current cursor-position, so that it can be restored with term_restore_cursor_pos()
-*/
+ * @brief saves the current cursor-position, so that it can be restored with
+ * term_restore_cursor_pos()
+ */
 void term_save_cursor_pos();
 
 /**
  * @brief restores the saved position of the terminal-cursor
- * 
+ *
  * @note restoring when not having saved first will lead to undefined behaviour
-*/
+ */
 void term_restore_cursor_pos();
 
 /**
  * @brief sets the cursor-position
- * 
+ *
  * @param pos new position for cursor in format "x;y"
- * 
+ *
  * @note origin is 1;1 in top-left of terminal
-*/
+ */
 void term_set_cursor_pos(char pos[]);
 
 #pragma endregion
