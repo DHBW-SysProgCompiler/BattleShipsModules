@@ -13,6 +13,9 @@
 #ifndef BOARDPRINT_H
 #define BOARDPRINT_H
 
+#include "term_control.h"
+#include <stdint.h>
+
 /**
  * @brief print both player- and bot-boards side by side
  *
