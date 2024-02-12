@@ -19,7 +19,7 @@
  * @param player_board board of the player
  * @param bot_board board of the bot
  * @param cursor_x x-position of the player-cursor (origin is A0/top-left)
- * @param cursor_y y-position of the player-cursor (to -1 to hide cursor)
+ * @param cursor_y y-position of the player-cursor (set -1 to hide cursor)
  *
  * @note boards do not have to be 0-terminated
  * @note however they have to be length 100 (101 if 0-terminated)
