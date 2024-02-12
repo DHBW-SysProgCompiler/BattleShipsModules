@@ -46,23 +46,15 @@
 #define TIMER_EVENT_TRIGGER 1 // Value for setting/starting an Event
 #define TIMER_EVENT_CLEAR 0   // Value for clearing/stopping an Event
 
-#define SHORTS_COMPARE0_CLEAR_ENABLE                                           \
-  (1 << 0) // Shortcut between COMPARE[0] event and CLEAR task
-#define SHORTS_COMPARE0_CLEAR_DISABLE                                          \
-  (0 << 0) // Shortcut between COMPARE[0] event and CLEAR task
-#define SHORTS_COMPARE1_CLEAR_ENABLE                                           \
-  (1 << 1) // Shortcut between COMPARE[1] event and CLEAR task
-#define SHORTS_COMPARE1_CLEAR_DISABLE                                          \
-  (0 << 1) // Shortcut between COMPARE[1] event and CLEAR task
+#define SHORTS_COMPARE0_CLEAR_ENABLE (1 << 0)  // Shortcut between COMPARE[0] event and CLEAR task
+#define SHORTS_COMPARE0_CLEAR_DISABLE (0 << 0) // Shortcut between COMPARE[0] event and CLEAR task
+#define SHORTS_COMPARE1_CLEAR_ENABLE (1 << 1)  // Shortcut between COMPARE[1] event and CLEAR task
+#define SHORTS_COMPARE1_CLEAR_DISABLE (0 << 1) // Shortcut between COMPARE[1] event and CLEAR task
 
-#define SHORTS_COMPARE0_STOP_ENABLE                                            \
-  (1 << 8) // Shortcut between COMPARE[0] event and STOP task
-#define SHORTS_COMPARE0_STOP_DISABLE                                           \
-  (0 << 8) // Shortcut between COMPARE[0] event and STOP task
-#define SHORTS_COMPARE1_STOP_ENABLE                                            \
-  (1 << 9) // Shortcut between COMPARE[1] event and STOP task
-#define SHORTS_COMPARE1_STOP_DISABLE                                           \
-  (0 << 9) // Shortcut between COMPARE[1] event and STOP task
+#define SHORTS_COMPARE0_STOP_ENABLE (1 << 8)  // Shortcut between COMPARE[0] event and STOP task
+#define SHORTS_COMPARE0_STOP_DISABLE (0 << 8) // Shortcut between COMPARE[0] event and STOP task
+#define SHORTS_COMPARE1_STOP_ENABLE (1 << 9)  // Shortcut between COMPARE[1] event and STOP task
+#define SHORTS_COMPARE1_STOP_DISABLE (0 << 9) // Shortcut between COMPARE[1] event and STOP task
 
 #define INT_COMPARE0 (1 << 16) // Enable/Disable Interrupt on COMPARE[0] event
 #define INT_COMPARE1 (1 << 17) // Enable/Disable Interrupt on COMPARE[1] event
@@ -88,8 +80,7 @@ void timer_init();
  * @param bitmode      Register value according to `Table 146: BITMODE`
  * @param compareValue Register value according to `Table 148: CC[0]`
  */
-void timer_init_detailed(uint32_t prescaler, uint32_t bitmode,
-                         uint32_t compareValue);
+void timer_init_detailed(uint32_t prescaler, uint32_t bitmode, uint32_t compareValue);
 
 /**
  * @brief Clears the Compare Event for CC[0]

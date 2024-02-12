@@ -24,8 +24,7 @@
 
 #define Interrupt_Set_Enable 0xE000E100 // [32...0] Interrupt
 
-#define Interrupt_ICPR                                                         \
-  0xE000E280 // Interrupt Clear-pending Register (on page 4-6)
+#define Interrupt_ICPR 0xE000E280 // Interrupt Clear-pending Register (on page 4-6)
 
 #define Interrupt_ID8 (1 << 8)   // Bit for User Interrupt ID: 8
 #define Interrupt_ID9 (1 << 9)   // Bit for User Interrupt ID: 9

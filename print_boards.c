@@ -62,8 +62,7 @@ void print_row(int row, char board[], int cursor_x, int cursor_y) {
 
 #pragma endregion
 
-void print_boards(char player_board[], char bot_board[], int cursor_x,
-                  int cursor_y) {
+void print_boards(char player_board[], char bot_board[], int cursor_x, int cursor_y) {
   print_header();
 
   // print all the boards

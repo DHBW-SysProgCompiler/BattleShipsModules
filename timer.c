@@ -5,8 +5,7 @@
 
 #include "register_access.h"
 
-void timer_init_detailed(uint32_t prescaler, uint32_t bitmode,
-                         uint32_t compareValue) {
+void timer_init_detailed(uint32_t prescaler, uint32_t bitmode, uint32_t compareValue) {
 
   // Instance[0] of the Timer uses Peripheral ID: 8
 

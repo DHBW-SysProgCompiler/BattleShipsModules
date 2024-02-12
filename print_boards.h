@@ -28,7 +28,6 @@
  * @note however they have to be length 100 (101 if 0-terminated)
  * @note any other lengths will lead to unwanted behaviour
  */
-void print_boards(char player_board[], char bot_board[], int cursor_x,
-                  int cursor_y);
+void print_boards(char player_board[], char bot_board[], int cursor_x, int cursor_y);
 
 #endif
