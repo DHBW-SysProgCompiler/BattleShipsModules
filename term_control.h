@@ -48,6 +48,13 @@ void term_printc(char c);
  */
 void term_print(char s[]);
 
+/**
+ * @brief Prints an entire String (char-array) and appends a newline
+ *
+ * @param s the char-array to be printed
+ */
+void term_println(char s[]);
+
 #pragma endregion
 
 #pragma region input

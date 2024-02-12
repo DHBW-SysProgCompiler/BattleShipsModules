@@ -37,6 +37,11 @@ void term_print(char s[]) {
   }
 }
 
+void term_println(char s[]) {
+  term_print(s);
+  term_printc('\n');
+}
+
 void term_clear_screen() {
   // clears the screen via ansi-voodoo
   term_print("\e[2J\e[H");
