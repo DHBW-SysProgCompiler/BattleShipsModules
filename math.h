@@ -7,8 +7,7 @@
  *
  * @author Eric Erath
  *
- * @brief math-functions to replace missing assembly instructions on the
- *arm-cortex-m0
+ * @brief math-functions to replace missing assembly instructions on the arm-cortex-m0
  **/
 
 #ifndef MATH_H
