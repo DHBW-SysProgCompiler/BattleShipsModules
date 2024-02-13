@@ -115,7 +115,10 @@ void print_row(int row, char board[], int cursor_x, int cursor_y, int print_ship
 #pragma endregion
 
 void print_boards(char player_board[], char bot_board[], int cursor_x, int cursor_y) {
+  // reset cursor-position
   term_set_cursor_pos("1;1");
+
+  // print lines that are seperatefrom the dynamically changing board
   print_header();
 
   // print all the boards
@@ -129,5 +132,7 @@ void print_boards(char player_board[], char bot_board[], int cursor_x, int curso
     print_row_delimiter(y);
   }
 
+  // print a nice legend using ansi instead of newlines
+  // to move the cursor to avoid drawing over the boards
   print_legend();
 }
