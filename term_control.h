@@ -103,7 +103,7 @@ void term_restore_cursor_pos();
 /**
  * @brief sets the cursor-position
  *
- * @param pos new position for cursor in format "x;y"
+ * @param pos new position for cursor in format "y;x"
  *
  * @note origin is 1;1 in top-left of terminal
  */

@@ -17,6 +17,9 @@ void term_init(char *buff, uint32_t len) {
   // save addr and len of buffer
   buffer = buff;
   buffer_len = len;
+
+  // hide cursor
+  term_print("\e[?25l");
 }
 
 #pragma endregion

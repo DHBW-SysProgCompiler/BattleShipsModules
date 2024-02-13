@@ -30,7 +30,7 @@ int32_t math_div(int32_t dividend, int32_t divisor) {
   return result;
 }
 
-uint32_t math_mod(uint32_t dividend, uint32_t divisor) {
+uint32_t math_mod(int32_t dividend, uint32_t divisor) {
 
   // catch modulation by 0
   if (divisor == 0) {
@@ -38,6 +38,9 @@ uint32_t math_mod(uint32_t dividend, uint32_t divisor) {
   }
 
   // calculate result // this is inefficient, i dont like it
+  while (dividend < 0) {
+    dividend += divisor;
+  }
   while (dividend >= divisor) {
     dividend -= divisor;
   }

@@ -28,7 +28,7 @@
 int32_t math_div(int32_t dividend, int32_t divisor);
 
 /**
- * @brief modulate two integers
+ * @brief modulate two integers (return smallest possible positive result)
  *
  * @param dividend interger to be divided
  * @param divisor integer to be divided by
@@ -37,6 +37,6 @@ int32_t math_div(int32_t dividend, int32_t divisor);
  *
  * @note modulation by zero returns uint32_t.max_value (0xFFFF_FFFF)
  */
-uint32_t math_mod(uint32_t dividend, uint32_t divisor);
+uint32_t math_mod(int32_t dividend, uint32_t divisor);
 
 #endif
