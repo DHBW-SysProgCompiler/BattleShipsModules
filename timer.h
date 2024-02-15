@@ -1,8 +1,8 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 // Definitions ----------------------------------------------------------------
 
@@ -47,22 +47,22 @@
 #define TIMER_EVENT_TRIGGER 1 // Value for setting/starting an Event
 #define TIMER_EVENT_CLEAR 0   // Value for clearing/stopping an Event
 
-#define SHORTS_COMPARE0_CLEAR_ENABLE \
+#define SHORTS_COMPARE0_CLEAR_ENABLE                                           \
   (1 << 0) // Shortcut between COMPARE[0] event and CLEAR task
-#define SHORTS_COMPARE0_CLEAR_DISABLE \
+#define SHORTS_COMPARE0_CLEAR_DISABLE                                          \
   (0 << 0) // Shortcut between COMPARE[0] event and CLEAR task
-#define SHORTS_COMPARE1_CLEAR_ENABLE \
+#define SHORTS_COMPARE1_CLEAR_ENABLE                                           \
   (1 << 1) // Shortcut between COMPARE[1] event and CLEAR task
-#define SHORTS_COMPARE1_CLEAR_DISABLE \
+#define SHORTS_COMPARE1_CLEAR_DISABLE                                          \
   (0 << 1) // Shortcut between COMPARE[1] event and CLEAR task
 
-#define SHORTS_COMPARE0_STOP_ENABLE \
+#define SHORTS_COMPARE0_STOP_ENABLE                                            \
   (1 << 8) // Shortcut between COMPARE[0] event and STOP task
-#define SHORTS_COMPARE0_STOP_DISABLE \
+#define SHORTS_COMPARE0_STOP_DISABLE                                           \
   (0 << 8) // Shortcut between COMPARE[0] event and STOP task
-#define SHORTS_COMPARE1_STOP_ENABLE \
+#define SHORTS_COMPARE1_STOP_ENABLE                                            \
   (1 << 9) // Shortcut between COMPARE[1] event and STOP task
-#define SHORTS_COMPARE1_STOP_DISABLE \
+#define SHORTS_COMPARE1_STOP_DISABLE                                           \
   (0 << 9) // Shortcut between COMPARE[1] event and STOP task
 
 #define INT_COMPARE0 (1 << 16) // Enable/Disable Interrupt on COMPARE[0] event
@@ -76,38 +76,44 @@
  * @brief Enum of all available timers.
  * Timer0, Timer1, Timer2
  */
-enum Timer
-{
+enum Timer {
   TIMER0 = TIMER0_BASE_ADDRESS,
   TIMER1 = TIMER1_BASE_ADDRESS,
   TIMER2 = TIMER2_BASE_ADDRESS,
 };
 
-enum Capture
-{
+enum Capture {
   CC0 = TIMER_COMPARE_0,
   CC1 = TIMER_COMPARE_1,
   CC2 = TIMER_COMPARE_2,
   CC3 = TIMER_COMPARE_3,
 };
 
+//  Define function pointer types
+typedef void (*FunctionPointer)(void);
+
 // C Function Definitions -----------------------------------------------------
 
 /**
- * @brief Initialize a new timer with one capture target. Does NOT start the timer.
- * timer_init(TIMER0, 15, 3, 1953); initializes Timer0 to tick on cc0 every ~4sec.
+ * @brief Initialize a new timer with one capture target. Does NOT start the
+ * timer. timer_init(TIMER0, 15, 3, 1953); initializes Timer0 to tick on cc0
+ * every ~4sec.
  * @param timer Timer to use. Timer0..2
- * @param prescaler Prescaler to reduce percision. min (1 = 0b00000001), max (15 = 0b00001111)
+ * @param prescaler Prescaler to reduce percision. min (1 = 0b00000001), max (15
+ * = 0b00001111)
  * @param bitmode Timer bitmode. 0=16b, 1=8b, 2=24b, 3=32b
  * @param cc0 Capture Target 0. Value to compare timer against.
+ * @param run_on_match Function to run once the cc0 target is reached
  */
-void timer_init(enum Timer timer, uint32_t prescaler, uint32_t bitmode, uint32_t cc0);
+void timer_init(enum Timer timer, uint32_t prescaler, uint32_t bitmode,
+                uint32_t cc0, FunctionPointer run_on_match);
 
 /**
  * @brief Changes the timer prescaler.
  *
  * @param timer Selected timer
- * @param prescaler Prescaler to reduce percision. min (1 = 0b00000001), max (15 = 0b00001111)
+ * @param prescaler Prescaler to reduce percision. min (1 = 0b00000001), max (15
+ * = 0b00001111)
  */
 void timer_prescaler(enum Timer timer, uint32_t prescaler);
 
@@ -127,8 +133,11 @@ void timer_bitmode(enum Timer timer, uint32_t bitmode);
  * @param compareValue Value to compare timer against
  * @param clear_on_match Clears/Restarts the timer once target is reached
  * @param stop_on_match Stops the timer once the target is reached
+ * @param run_on_match Function to run once the target is reached
  */
-void timer_add_capture(enum Timer timer, enum Capture cc, uint32_t compareValue, bool clear_on_match, bool stop_on_match);
+void timer_add_capture(enum Timer timer, enum Capture cc, uint32_t compareValue,
+                       bool clear_on_match, bool stop_on_match,
+                       FunctionPointer run_on_match);
 
 /**
  * @brief Remove timer capture target
