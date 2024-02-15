@@ -1,6 +1,7 @@
 #ifndef TIMER_H
 #define TIMER_H
 
+#include <stdbool.h>
 #include <stdint.h>
 
 // Definitions ----------------------------------------------------------------
@@ -61,33 +62,120 @@
 #define INT_COMPARE2 (1 << 18) // Enable/Disable Interrupt on COMPARE[2] event
 #define INT_COMPARE3 (1 << 19) // Enable/Disable Interrupt on COMPARE[3] event
 
+// Custom
+
+/**
+ * @brief Enum of all available timers.
+ * Timer0, Timer1, Timer2
+ */
+enum Timer {
+  TIMER0 = TIMER0_BASE_ADDRESS,
+  TIMER1 = TIMER1_BASE_ADDRESS,
+  TIMER2 = TIMER2_BASE_ADDRESS,
+};
+
+enum Capture {
+  CC0 = TIMER_COMPARE_0,
+  CC1 = TIMER_COMPARE_1,
+  CC2 = TIMER_COMPARE_2,
+  CC3 = TIMER_COMPARE_3,
+};
+
+//  Define function pointer types
+typedef void (*FunctionPointer)(void);
+
 // C Function Definitions -----------------------------------------------------
 
 /**
- * @brief Initializes the Timer[0] Peripheral to a value ~4sek
- * This is just for demonstration and could be changed to your needs
+ * @brief Initialize a new timer with one capture target. Does NOT start the
+ * timer. timer_init(TIMER0, 15, 3, 1953); initializes Timer0 to tick on cc0
+ * every ~4sec.
+ * @param timer Timer to use. Timer0..2
+ * @param prescaler Prescaler to reduce percision. min (1 = 0b00000001), max (15
+ * = 0b00001111)
+ * @param bitmode Timer bitmode. 0=16b, 1=8b, 2=24b, 3=32b
+ * @param cc0 Capture Target 0. Value to compare timer against.
+ * @param run_on_match Function to run once the cc0 target is reached
  */
-void timer_init();
+void timer_init(enum Timer timer, uint32_t prescaler, uint32_t bitmode,
+                uint32_t cc0, FunctionPointer run_on_match);
 
 /**
- * @brief Initializes the Timer[0] Peripheral to the Values given
- * It also enable the shortcut between CC[0] and CLEAR, so that the timer
- * is cleared, when the compared value is reached.
+ * @brief Changes the timer prescaler.
  *
- * Compare Value set is for CC[0]
- *
- * @param prescaler    Register value according to `Table 147: PRESCALER`
- * @param bitmode      Register value according to `Table 146: BITMODE`
- * @param compareValue Register value according to `Table 148: CC[0]`
+ * @param timer Selected timer
+ * @param prescaler Prescaler to reduce percision. min (1 = 0b00000001), max (15
+ * = 0b00001111)
  */
-void timer_init_detailed(uint32_t prescaler, uint32_t bitmode, uint32_t compareValue);
+void timer_prescaler(enum Timer timer, uint32_t prescaler);
 
 /**
- * @brief Clears the Compare Event for CC[0]
+ * @brief Change timer bitmode
  *
- * This could be useful for stopping the
- * timer from pulling the interrupt-line.
+ * @param timer Selected timer
+ * @param bitmode Timer bitmode. 0=16b, 1=8b, 2=24b, 3=32b
  */
-void timer_clearCompareEvent();
+void timer_bitmode(enum Timer timer, uint32_t bitmode);
+
+/**
+ * @brief Add timer capture target
+ *
+ * @param timer Selected timer
+ * @param cc Selected capture group
+ * @param compareValue Value to compare timer against
+ * @param clear_on_match Clears/Restarts the timer once target is reached
+ * @param stop_on_match Stops the timer once the target is reached
+ * @param run_on_match Function to run once the target is reached
+ */
+void timer_add_capture(enum Timer timer, enum Capture cc, uint32_t compareValue,
+                       bool clear_on_match, bool stop_on_match,
+                       FunctionPointer run_on_match);
+
+/**
+ * @brief Remove timer capture target
+ *
+ * @param timer Selected timer
+ * @param cc Selected capture group
+ */
+void timer_remove_capture(enum Timer timer, enum Capture cc);
+
+/**
+ * @brief Start timer
+ *
+ * @param timer Selected timer
+ */
+void timer_start(enum Timer timer);
+
+/**
+ * @brief Remove timer
+ *
+ * @param timer Selected timer
+ */
+void timer_stop(enum Timer timer);
+
+/**
+ * @brief Clearst the timer, to start from the beginning
+ *
+ * @param timer Selected timer
+ */
+void timer_clear(enum Timer timer);
+
+/**
+ * @brief Clears the Compare Event
+ *
+ * @param timer Selected timer
+ * @param cc Selected capture group
+ */
+void timer_event_clear(enum Timer timer, enum Capture cc);
+
+
+/**
+ * @brief Check if timer event has triggered
+ *
+ * @param timer Selected timer
+ * @param cc Selected capture group
+ * @return uint32_t
+ */
+uint32_t timer_check(enum Timer timer, enum Capture cc);
 
 #endif
