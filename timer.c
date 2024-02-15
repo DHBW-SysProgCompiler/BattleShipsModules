@@ -25,9 +25,7 @@ FunctionPointer timer2_cc1_trigger = empty_trigger;
 FunctionPointer timer2_cc2_trigger = empty_trigger;
 FunctionPointer timer2_cc3_trigger = empty_trigger;
 
-
-void timer_init(enum Timer timer, uint32_t prescaler, uint32_t bitmode,
-                uint32_t cc0, FunctionPointer run_on_match) {
+void timer_init(enum Timer timer, uint32_t prescaler, uint32_t bitmode, uint32_t cc0, FunctionPointer run_on_match) {
   // Add prescaler
   timer_prescaler(timer, prescaler);
   // Add bitmode
@@ -65,9 +63,7 @@ void timer_bitmode(enum Timer timer, uint32_t bitmode) {
   register_write((timer + TIMER_BITMODE), bitmode);
 }
 
-void timer_add_capture(enum Timer timer, enum Capture cc, uint32_t compareValue,
-                       bool clear_on_match, bool stop_on_match,
-                       FunctionPointer run_on_match) {
+void timer_add_capture(enum Timer timer, enum Capture cc, uint32_t compareValue, bool clear_on_match, bool stop_on_match, FunctionPointer run_on_match) {
   uint32_t timer_cc;
   uint32_t int_compare;
   uint32_t clear;
@@ -393,9 +389,7 @@ void timer_event_clear(enum Timer timer, enum Capture cc) {
   register_write((timer + cc), TIMER_EVENT_CLEAR);
 }
 
-uint32_t timer_check(enum Timer timer, enum Capture cc) {
-  return register_read((timer + cc));
-}
+uint32_t timer_check(enum Timer timer, enum Capture cc) { return register_read((timer + cc)); }
 
 // Timer0 Interrupt Handler
 void Interrupt8_Handler(void) {

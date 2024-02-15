@@ -97,8 +97,7 @@ typedef void (*FunctionPointer)(void);
  * @param cc0 Capture Target 0. Value to compare timer against.
  * @param run_on_match Function to run once the cc0 target is reached
  */
-void timer_init(enum Timer timer, uint32_t prescaler, uint32_t bitmode,
-                uint32_t cc0, FunctionPointer run_on_match);
+void timer_init(enum Timer timer, uint32_t prescaler, uint32_t bitmode, uint32_t cc0, FunctionPointer run_on_match);
 
 /**
  * @brief Changes the timer prescaler.
@@ -127,9 +126,7 @@ void timer_bitmode(enum Timer timer, uint32_t bitmode);
  * @param stop_on_match Stops the timer once the target is reached
  * @param run_on_match Function to run once the target is reached
  */
-void timer_add_capture(enum Timer timer, enum Capture cc, uint32_t compareValue,
-                       bool clear_on_match, bool stop_on_match,
-                       FunctionPointer run_on_match);
+void timer_add_capture(enum Timer timer, enum Capture cc, uint32_t compareValue, bool clear_on_match, bool stop_on_match, FunctionPointer run_on_match);
 
 /**
  * @brief Remove timer capture target
@@ -167,7 +164,6 @@ void timer_clear(enum Timer timer);
  * @param cc Selected capture group
  */
 void timer_event_clear(enum Timer timer, enum Capture cc);
-
 
 /**
  * @brief Check if timer event has triggered
