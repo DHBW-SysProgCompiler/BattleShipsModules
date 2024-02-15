@@ -25,6 +25,7 @@ FunctionPointer timer2_cc1_trigger = empty_trigger;
 FunctionPointer timer2_cc2_trigger = empty_trigger;
 FunctionPointer timer2_cc3_trigger = empty_trigger;
 
+
 void timer_init(enum Timer timer, uint32_t prescaler, uint32_t bitmode,
                 uint32_t cc0, FunctionPointer run_on_match) {
   // Add prescaler

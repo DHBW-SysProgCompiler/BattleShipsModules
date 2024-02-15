@@ -11,9 +11,7 @@
 #define RNG_STOP 0x004  // Task stopping the random number generator
 
 // Events:
-#define RNG_VALRDY                                                             \
-  0x100 // Event being generated for every new random number written to the
-        // VALUE register
+#define RNG_VALRDY 0x100 // Event being generated for every new random number written to the VALUE register
 
 // Registers:
 #define RNG_SHORTS 0x200   // Shortcut register
