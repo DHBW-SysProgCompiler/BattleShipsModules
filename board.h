@@ -13,6 +13,9 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+#include "board.h"
+#include "math.h"
+#include "random.h"
 #include <stdint.h>
 
 /**
@@ -48,12 +51,31 @@ void board_place_ships(board *board);
 /**
  * @brief shoots to given coordinates
  *
- * @param board pointer to the board to be initialized
+ * @param board pointer to the board to be shot at
  * @param coordinates position to shoot at
  *
- * @return 2 on MISS, 3 on HIT, else 0
+ * @return 2 on MISS, 4 on HIT, else 0
  */
 uint8_t board_shoot(board *board, cursor_position *coordinates);
+
+/**
+ * @brief shoots to given coordinates
+ *
+ * @param board pointer to the board to be shot at
+ * @param field_index array-index to shoot at
+ *
+ * @return 2 on MISS, 4 on HIT, else 0
+ */
+uint8_t board_shoot_index(board *board, int field_index);
+
+/**
+ * @brief shoots to given coordinates
+ *
+ * @param board pointer to the player_board to be shot at by the bot
+ *
+ * @return 2 on MISS, 4 on HIT, else 0
+ */
+uint8_t board_bot_shoot(board *board);
 
 /**
  * @brief parses a char from user and interprets as wasd-controls, alters position accordingly

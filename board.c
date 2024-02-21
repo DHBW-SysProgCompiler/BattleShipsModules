@@ -128,17 +128,40 @@ void board_place_ships(board *board) {
   }
 }
 
-uint8_t board_shoot(board *board, cursor_position *coordinates) {
-  int i = coordinates->cursor_y * 10 + coordinates->cursor_x;
-  switch (board->data[i]) {
+uint8_t board_shoot(board *board, cursor_position *coordinates) { return board_shoot_index(board, coord_to_index(coordinates->cursor_x, coordinates->cursor_y)); }
+
+uint8_t board_shoot_index(board *board, int field_index) {
+  switch (board->data[field_index]) {
   case SHIP:
-    board->data[i] = HIT;
+    board->data[field_index] = HIT;
     return 4;
   case EMPTY:
-    board->data[i] = MISS;
+    board->data[field_index] = MISS;
     return 2;
   }
   return 0;
+}
+
+uint8_t board_bot_shoot(board *board) {
+  int shots[100];
+  int shotcount = 0;
+
+  // fill the array with indexes of actually possible shots
+  for (int i = 0; i < 100; i++) {
+    if (board->data[i] == EMPTY || board->data[i] == SHIP) {
+      shots[shotcount] = i;
+      shotcount++;
+    }
+  }
+
+  // choose a random index from the availible shots
+  if (shotcount == 0) {
+    return 0;
+  }
+  int shot = math_mod(rng_getRandomValue_immediately(), shotcount);
+
+  // take the shot
+  board_shoot_index(board, shots[shot]);
 }
 
 uint8_t cursor_parse_wasd(cursor_position *cursor_position, char wasd) {
