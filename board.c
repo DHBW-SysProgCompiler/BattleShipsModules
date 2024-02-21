@@ -3,9 +3,128 @@
 #include "random.h"
 #include <stdint.h>
 
+#pragma region helper - functions
+
 void board_init(board *board) {
   for (int i = 0; i < 100; i++) {
     board->data[i] = EMPTY;
+  }
+}
+
+int coord_to_index(int x, int y) { return 10 * y + x; }
+
+void dir_to_offset(int offsets[2], int dir) {
+  offsets[0] = 0;
+  offsets[1] = 0;
+  switch (dir) {
+  case 0:
+    offsets[1] -= 1;
+    break;
+  case 1:
+    offsets[0] += 1;
+    break;
+  case 2:
+    offsets[1] += 1;
+    break;
+  case 3:
+    offsets[0] -= 1;
+    break;
+  }
+}
+
+uint8_t is_valid_placement(board *board, int ship_x, int ship_y, int dir, int len) {
+  // ensure dir is a valid direction
+  if (dir != math_mod(dir, 4)) {
+    return 0;
+  }
+
+  // ensure placement is within bounds of board
+  // by checking begin and endpoints
+  if (ship_x != math_mod(ship_x, 10) || ship_y != math_mod(ship_y, 10)) {
+    return 0;
+  }
+  int offsets[2];
+  dir_to_offset(offsets, dir);
+  int end_x = ship_x + offsets[0] * len;
+  int end_y = ship_y + offsets[1] * len;
+  if (end_x != math_mod(end_x, 10) || end_y != math_mod(end_y, 10)) {
+    return 0;
+  }
+
+  // for each field of the ship, check if adjacend fields are empty
+  for (int i = 0; i < len; i++) {
+    int current_x = ship_x + i * offsets[0];
+    int current_y = ship_y + i * offsets[1];
+
+    // check allsurrounding fields (this checks some twice/thrice, but i dont care)
+    int check_offsets[] = {-1, 0, 1};
+
+    for (int j = 0; j < 3; j++) {
+      if (current_x + check_offsets[j] == math_mod(current_x + check_offsets[j], 10)) {
+        for (int k = 0; k < 3; k++) {
+          if (current_y + check_offsets[k] == math_mod(current_y + check_offsets[k], 10)) {
+            if (board->data[coord_to_index(current_x + check_offsets[j], current_y + check_offsets[k])] != EMPTY) {
+              return 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+void place_ship(board *board, int ship_x, int ship_y, int dir, int len) {
+  int x = ship_x;
+  int y = ship_y;
+  int offsets[2];
+  dir_to_offset(offsets, dir);
+  for (int i = 0; i < len; i++) {
+    board->data[coord_to_index(x + i * offsets[0], y + i * offsets[1])] = SHIP;
+  }
+}
+
+#pragma endregion
+
+void board_place_ships(board *board) {
+  while (1) {
+    // clear the board
+    board_init(board);
+
+    // iterate over boards and place them
+    int lengths[] = {5, 4, 4, 3, 3, 3, 2, 2, 2, 2};
+    for (int ship = 0; ship < 10; ship++) {
+
+      // attempt to place each ship x times
+      // on succesess continue to next ship
+      // else retry
+      int maxtrys = 32;
+      int trys;
+      for (trys = 0; trys < maxtrys; trys++) {
+
+        // collect random data from rng
+        uint16_t rand = ((uint16_t)rng_getRandomValue_waiting()) << 8 | (uint16_t)rng_getRandomValue_waiting();
+        int x = math_mod((rand & 0b1111111000000000) >> 9, 10);
+        int y = math_mod((rand & 0b0000000111111100) >> 2, 10);
+        int dir = rand & 0b0000000000000011;
+
+        // place if placement is valid
+        if (is_valid_placement(board, x, y, dir, lengths[ship])) {
+          place_ship(board, x, y, dir, lengths[ship]);
+
+          // if that was the last ship, return, else continue to next ship
+          if (ship == 9) {
+            return;
+          } else {
+            break;
+          }
+        }
+      }
+
+      // we needed more trys than were allowed, need to restart
+      if (trys == maxtrys) {
+        break;
+      }
+    }
   }
 }
 

@@ -32,20 +32,20 @@ void print_legend() {
   // trust me, this is fine
   term_set_cursor_pos("1;100");
   term_print("\e[1mLegend:\e[0m");
-  term_set_cursor_pos("2;102");
-  term_print(" \u25A0  = Ship");
-  term_set_cursor_pos("3;102");
-  term_print(" \e[1;31mX\e[0m  = Hit");
-  term_set_cursor_pos("4;102");
-  term_print(" \e[1;34mO\e[0m  = Miss");
+  term_set_cursor_pos("2;103");
+  term_print("\u25A0  = Ship");
+  term_set_cursor_pos("3;103");
+  term_print("\e[1;31mX\e[0m  = Hit");
+  term_set_cursor_pos("4;103");
+  term_print("\e[1;34mO\e[0m  = Miss");
   term_set_cursor_pos("5;102");
   term_print("\e[1;32m< >\e[0m = Cursor");
   term_set_cursor_pos("7;100");
   term_print("\e[1mControls:\e[0m");
   term_set_cursor_pos("8;102");
-  term_print("use \e[1mWASD\e[0m to move the cursor");
-  term_set_cursor_pos("9;102");
-  term_print("use \e[1m\u21b5\e[0m to shoot");
+  term_print("\e[1mWASD\e[0m => Move the Cursor");
+  term_set_cursor_pos("9;105");
+  term_print("\e[1m\u21b5\e[0m => Shoot");
 }
 
 void print_row_delimiter(int row) {
@@ -137,4 +137,7 @@ void print_boards(struct board *player, struct board *bot, struct cursor_positio
   // print a nice legend using ansi instead of newlines
   // to move the cursor to avoid drawing over the boards
   print_legend();
+
+  // move the cursor somewhere nice so it look good when quemu is terminated
+  term_set_cursor_pos("25;1");
 }

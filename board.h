@@ -39,11 +39,11 @@ typedef struct cursor_position {
 } cursor_position;
 
 /**
- * @brief initializes the board to all empty spaces
+ * @brief places the ships on the board
  *
  * @param board pointer to the board to be initialized
  */
-void board_init(board *board);
+void board_place_ships(board *board);
 
 /**
  * @brief shoots to given coordinates
