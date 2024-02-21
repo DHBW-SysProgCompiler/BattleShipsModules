@@ -43,7 +43,9 @@ void print_legend() {
   term_set_cursor_pos("7;100");
   term_print("\e[1mControls:\e[0m");
   term_set_cursor_pos("8;102");
-  term_print("// add later");
+  term_print("use \e[1mWASD\e[0m to move the cursor");
+  term_set_cursor_pos("9;102");
+  term_print("use \e[1m\u21b5\e[0m to shoot");
 }
 
 void print_row_delimiter(int row) {
