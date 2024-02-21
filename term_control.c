@@ -1,5 +1,4 @@
 #include "term_control.h"
-#include "heap_allocations.h"
 #include "register_access.h"
 #include "uart.h"
 #include <stdint.h>

@@ -13,21 +13,17 @@
 #ifndef BOARDPRINT_H
 #define BOARDPRINT_H
 
+#include "board.h"
 #include "term_control.h"
 #include <stdint.h>
 
 /**
  * @brief print both player- and bot-boards side by side
  *
- * @param player_board board of the player
- * @param bot_board board of the bot
- * @param cursor_x x-position of the player-cursor (origin is A0/top-left)
- * @param cursor_y y-position of the player-cursor (set -1 to hide cursor)
- *
- * @note boards do not have to be 0-terminated
- * @note however they have to be length 100 (101 if 0-terminated)
- * @note any other lengths will lead to unwanted behaviour
+ * @param player board of the player
+ * @param bot board of the bot
+ * @param cursor_position position of the player-cursor
  */
-void print_boards(char player_board[], char bot_board[], int cursor_x, int cursor_y);
+void print_boards(struct board *player, struct board *bot, struct cursor_position *cursor_position);
 
 #endif

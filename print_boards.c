@@ -58,7 +58,7 @@ void print_row_delimiter(int row) {
   }
 }
 
-void print_row(int row, char board[], int cursor_x, int cursor_y, int print_ships) {
+void print_row(int row, enum boardstates board[], int cursor_x, int cursor_y, int print_ships) {
   char ship_str[] = "\u25A0";
   char hit_str[] = "\e[1;31mX\e[0m";
   char miss_str[] = "\e[1;34mO\e[0m";
@@ -114,7 +114,7 @@ void print_row(int row, char board[], int cursor_x, int cursor_y, int print_ship
 
 #pragma endregion
 
-void print_boards(char player_board[], char bot_board[], int cursor_x, int cursor_y) {
+void print_boards(struct board *player, struct board *bot, struct cursor_position *cursor_position) {
   // reset cursor-position
   term_set_cursor_pos("1;1");
 
@@ -125,9 +125,9 @@ void print_boards(char player_board[], char bot_board[], int cursor_x, int curso
   term_set_cursor_pos("4;1");
   print_row_delimiter(0);
   for (int y = 0; y < 10; y++) {
-    print_row(y, player_board, -1, -1, 1);
+    print_row(y, player->data, -1, -1, 1);
     term_print("     ");
-    print_row(y, bot_board, cursor_x, cursor_y, 0);
+    print_row(y, bot->data, cursor_position->cursor_x, cursor_position->cursor_y, 0);
     term_printc('\n');
     print_row_delimiter(y);
   }
