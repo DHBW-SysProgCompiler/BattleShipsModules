@@ -50,8 +50,10 @@ void board_init(board *board);
  *
  * @param board pointer to the board to be initialized
  * @param coordinates position to shoot at
+ *
+ * @return 2 on MISS, 3 on HIT, else 0
  */
-void board_shoot(board *board, cursor_position *coordinates);
+uint8_t board_shoot(board *board, cursor_position *coordinates);
 
 /**
  * @brief parses a char from user and interprets as wasd-controls, alters position accordingly
@@ -62,5 +64,16 @@ void board_shoot(board *board, cursor_position *coordinates);
  * @return 1 if position was updated, else 0
  */
 uint8_t cursor_parse_wasd(cursor_position *cursor_position, char wasd);
+
+/**
+ * @brief parses a char from user and interprets as wasd-controls, alters position accordingly, shoots on enter
+ *
+ * @param bot_board pointer to the bot-board to be updated
+ * @param cursor_position pointer to the cursor_position to be updated
+ * @param wasd char to be parsed
+ *
+ * @return default 0, else board has to be reprinted
+ */
+uint8_t cursor_parse_input(board *bot_board, cursor_position *cursor_position, char wasd);
 
 #endif
