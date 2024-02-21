@@ -43,8 +43,10 @@ void rng_init();
 uint8_t rng_getRandomValue_immediately();
 
 /**
- * @brief This is a function stub. Implement it, if needed.
+ * @brief Get the next Random Value from the generator.
  *
- * @return uint8_t always `0`
+ * The function waits until the next value is generated!
+ *
+ * @return uint8_t random byte
  */
 uint8_t rng_getRandomValue_waiting();

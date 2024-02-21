@@ -32,22 +32,15 @@ uint8_t rng_getRandomValue_immediately() {
 }
 
 /**
- * @brief # THIS FUNCTION IS A STUB! #
+ * @brief Get the next Random Value from the generator.
  *
- * TODO: Implement it, if you need it
+ * The function waits until the next value is generated!
  *
- * Things it should do here:
- * - Get the Random Value from the generator by polling and waiting.
- * - The function should be **blocking** until the next value is generated
- * - it should return the random byte
- *
- * @return uint8_t (curently) always `0`
+ * @return uint8_t random byte
  */
 uint8_t rng_getRandomValue_waiting() {
-
-  // TODO:
-  // Implement a 'waiting' here, if needed
-
-  // for now, return 0
-  return 0;
+  while (!register_read(RNG_BASE_ADDRESS + RNG_VALRDY)) {
+  }
+  register_write(RNG_BASE_ADDRESS + RNG_VALRDY, 0);
+  return register_read(RNG_BASE_ADDRESS + RNG_VALUE);
 }
