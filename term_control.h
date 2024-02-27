@@ -55,6 +55,13 @@ void term_print(char s[]);
  */
 void term_println(char s[]);
 
+/**
+ * @brief Prints a number to stdout
+ *
+ * @param number the number to be printed
+ */
+void term_printnr(int number);
+
 #pragma endregion
 
 #pragma region input

@@ -208,6 +208,17 @@ void timer_add_capture(enum Timer timer, enum Capture cc, uint32_t compareValue,
                  int_compare | ints); // Merge with previous
 }
 
+void timer0_CC0_set_delay(uint32_t compareValue) {
+  uint32_t int_compare = INT_COMPARE0; // Interrupt on Compare[0]
+
+  register_write((TIMER0 + TIMER_CC_0), compareValue);
+
+  // Enable Interrupt
+  uint32_t ints = register_read((TIMER0 + TIMER_INTENSET));
+  register_write((TIMER0 + TIMER_INTENSET),
+                 int_compare | ints); // Merge with previous
+}
+
 void timer_remove_capture(enum Timer timer, enum Capture cc) {
   uint32_t timer_cc;
   uint32_t int_compare;

@@ -1,4 +1,5 @@
 #include "term_control.h"
+#include "math.h"
 #include "register_access.h"
 #include "uart.h"
 #include <stdint.h>
@@ -42,6 +43,25 @@ void term_print(char s[]) {
 void term_println(char s[]) {
   term_print(s);
   term_printc('\n');
+}
+
+void term_printnr(int number) {
+  // handle negative numbers
+  if (number < 0) {
+    term_printc('-');
+    number *= -1;
+  }
+
+  int len = 1;
+  while (number >= math_pow(10, len)) {
+    len++;
+  }
+  for (int i = len - 1; i >= 0; i--) {
+    int pow = math_pow(10, i);
+    int digit = math_div(number, pow);
+    term_printc('0' + digit);
+    number -= digit * pow;
+  }
 }
 
 void term_clear_screen() {

@@ -195,3 +195,13 @@ uint8_t cursor_parse_input(board *bot_board, cursor_position *cursor_position, c
   }
   return res;
 }
+
+uint8_t board_stats(board *board, boardstates stat) {
+  uint8_t res = 0;
+  for (int i = 0; i < 100; i++) {
+    if (board->data[i] == stat) {
+      res++;
+    }
+  }
+  return res;
+}

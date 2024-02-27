@@ -98,4 +98,14 @@ uint8_t cursor_parse_wasd(cursor_position *cursor_position, char wasd);
  */
 uint8_t cursor_parse_input(board *bot_board, cursor_position *cursor_position, char wasd);
 
+/**
+ * @brief counts how many fields of the board are in the given state
+ *
+ * @param board board to be counted on
+ * @param stat what kind of state should be counted
+ *
+ * @return number of fields in the given state
+ */
+uint8_t board_stats(board *board, boardstates stat);
+
 #endif

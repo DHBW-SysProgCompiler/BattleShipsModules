@@ -137,6 +137,15 @@ void timer_add_capture(enum Timer timer, enum Capture cc, uint32_t compareValue,
 void timer_remove_capture(enum Timer timer, enum Capture cc);
 
 /**
+ * @brief changes the comparevalue of timer1/cc0
+ *
+ * @param compareValue new delay
+ *
+ * @note with prescaler = 15, compareValue = 1953 ~ 4 seconds
+ */
+void timer0_CC0_set_delay(uint32_t compareValue);
+
+/**
  * @brief Start timer
  *
  * @param timer Selected timer

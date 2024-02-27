@@ -47,3 +47,11 @@ uint32_t math_mod(int32_t dividend, uint32_t divisor) {
 
   return dividend;
 }
+
+uint32_t math_pow(int32_t base, uint32_t exponent) {
+  uint32_t res = 1;
+  for (int i = 0; i < exponent; i++) {
+    res *= base;
+  }
+  return res;
+}

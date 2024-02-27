@@ -39,4 +39,14 @@ int32_t math_div(int32_t dividend, int32_t divisor);
  */
 uint32_t math_mod(int32_t dividend, uint32_t divisor);
 
+/**
+ * @brief raise an integer to a power
+ *
+ * @param base base for exponentiotion
+ * @param exponent exponent, duhhhh
+ *
+ * @return result of the operation
+ */
+uint32_t math_pow(int32_t base, uint32_t exponent);
+
 #endif
