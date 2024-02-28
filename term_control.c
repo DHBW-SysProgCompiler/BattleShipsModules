@@ -66,7 +66,7 @@ void term_printnr(int number) {
 
 void term_clear_screen() {
   // clears the screen via ansi-voodoo
-  term_print("\e[2J\e[H");
+  term_print("\e[2J\e[3J\e[H");
 }
 
 #pragma endregion

@@ -104,7 +104,7 @@ void art_print_bargraph(int hits, int misses) {
     term_printc(' ');
   }
   term_print("\e[44m");
-  for (int i = 0; i < hits; i++) {
+  for (int i = 0; i < misses; i++) {
     term_printc(' ');
   }
   term_println("\e[0m");
