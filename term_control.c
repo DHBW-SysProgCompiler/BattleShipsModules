@@ -115,9 +115,11 @@ void term_save_cursor_pos() { term_print("\e 7"); }
 
 void term_restore_cursor_pos() { term_print("\e 8"); }
 
-void term_set_cursor_pos(char pos[]) {
+void term_set_cursor_pos(uint32_t y, uint32_t x) {
   term_print("\e[");
-  term_print(pos);
+  term_printnr(y);
+  term_printc(';');
+  term_printnr(x);
   term_print("H");
 }
 

@@ -110,11 +110,12 @@ void term_restore_cursor_pos();
 /**
  * @brief sets the cursor-position
  *
- * @param pos new position for cursor in format "y;x"
+ * @param y new position for cursor
+ * @param x new position for cursor
  *
- * @note origin is 1;1 in top-left of terminal
+ * @note origin is 1, 1 in top-left of terminal
  */
-void term_set_cursor_pos(char pos[]);
+void term_set_cursor_pos(uint32_t y, uint32_t x);
 
 #pragma endregion
 

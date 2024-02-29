@@ -26,4 +26,13 @@
  */
 void print_boards(struct board *player, struct board *bot, struct cursor_position *cursor_position);
 
+/**
+ * @brief update the printed states of both player- and bot-boards
+ *
+ * @param player board of the player
+ * @param bot board of the bot
+ * @param cursor_position position of the player-cursor
+ */
+void update_boards(struct board *player, struct board *bot, struct cursor_position *cursor_position);
+
 #endif
